@@ -1,0 +1,149 @@
+<!DOCTYPE html> 
+{% load static %} 
+{% load bootstrap4 %}
+{% bootstrap_css %} {% bootstrap_javascript jquery=True %}{% bootstrap_javascript %} 
+
+<html lang="en">
+
+{% block head %}
+<head>
+   <meta charset="UTF-8">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>
+   {% block title %} {% endblock %}
+  </title>
+  </head>
+
+{% endblock head %}
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a  href="{% url 'home' %}" class="navbar-brand">
+            <img src="{% static 'img/logo.png' %}" height="100" alt="CoolBrand">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
+                <a href="{% url 'jobs:all-jobs-list' %}" class="nav-item nav-link">jobs</a>
+                {% if user.is_company or user.is_superuser %}
+                    <a href="{% url 'jobs:my-jobs' %}" class="nav-item nav-link">jobs Dashboard</a>
+                {% endif %}
+                <a href="{% url 'about-us' %}" class="nav-item nav-link">about us</a>
+                <a href="{% url 'contact-us' %}" class="nav-item nav-link">contact us</a>
+               
+            </div>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+
+                    <a href="#" class="nav-link dropdown-toggle h6" data-toggle="dropdown" >
+                        <span class="fa fa-user fa-1x">
+                        {% if  user.is_company %}
+                                {{user.company_profile.Name}}
+                                {% elif user.is_job_seeker%} 
+                                    {{user.job_seeker_profile.Name}}
+                                {% elif user.is_superuser%} 
+                                    Admin
+                            
+                        {% endif %}
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <h5 class="dropdown-item">Signup </h5>
+                        <div class="dropdown-divider"></div>
+                        <a  href="{% url 'accounts:company_signup' %}" class="dropdown-item">as company</a>
+                        <a  href="{% url 'accounts:job_seeker_signup' %}" class="dropdown-item">as job seeker</a>
+                        <div class="dropdown-divider"></div>
+                        {% if not user.is_authenticated %}
+                            <a href="{% url 'accounts:login' %}" class="dropdown-item">Login</a>
+                        {% else %}
+                            <div class="dropdown-divider"></div>
+                                <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
+                            </div>
+                        {% endif %}
+                     
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    {% block content %} {% endblock %}
+
+<footer>
+    <div class="row justify-content-center mb-0 pt-5 pb-0 row-2 px-3">
+        <div class="col-12">
+            <div class="row row-2">
+                <div class="col-sm-3 text-md-center">
+                    <a  href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" width="120" alt="" class="d-inline-block align-middle mr-2"></a>
+                </div>
+                <div class="col-sm-3 my-sm-0 mt-5">
+                    <ul class="list-unstyled">
+                        <li class="mt-0">Platform</li>
+                        <li>Help Center</li>
+                        <li>Security</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 my-sm-0 mt-5">
+                    <ul class="list-unstyled">
+                        <li class="mt-0">Customers</li>
+                        <li>Use Cases</li>
+                        <li>Customers Services</li>
+                        
+                    </ul>
+                </div>
+                <div class="col-sm-3 my-sm-0 mt-5">
+                    <ul class="list-unstyled">
+                        <li class="mt-0">Company</li>
+                        <li>About</li>
+                        <li>Careers- <span class="Careers">We're-hiring</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-0 pt-0 row-1 mb-0 px-sm-3 px-2">
+        <div class="col-12">
+            <div class="row my-4 row-1 no-gutters">
+                <div class="col-sm-3 col-auto text-center"><small>Desitech Technologies &#9400;  {% now "Y" %}</small></div>
+                <div class="col-md-3 col-auto "></div>
+                <div class="col-md-3 col-auto"></div>
+                <div class="col my-auto text-md-left text-right "> <small>Example@gmail.com 
+                    <span><i class="fa fa-facebook-square" aria-hidden="true"></i></span>
+                    <span><i class="fa fa-twitter" aria-hidden="true"></i></span>
+                    </small> </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+$("#id_country").change(function () {
+var url = $("#Countries").attr("data-cities-url"); 
+console.log (url)
+var countryId = $(this).val(); 
+$.ajax({                    
+    url: url,                   
+    data: {'country': countryId    },
+    success: function (cities) {  
+    $("#id_city").html(cities); }});});
+</script>
+{% endblock scripts %}
+
+</html>

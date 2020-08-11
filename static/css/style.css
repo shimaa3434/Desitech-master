@@ -1,0 +1,38 @@
+
+
+
+/*footer*/
+
+footer {
+    color: #caced1 !important
+}
+
+li {
+    margin-top: 20px;
+    margin-bottom: 20px
+}
+
+.row-1 {
+    background-color: #1E242A !important
+}
+
+.row-2 {
+    background-color: #28323C !important
+}
+
+.edit-jobs:hover {
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+    text-decoration: none;
+    text-shadow: 1px 2px 1px rgb(48, 79, 182);
+}
+
+
+/* 3b5998 */
+
+.fa-plus-circle:hover {
+    transform: scale(1.2);
+    transition: all 0.5s ease-in-out;
+    text-decoration: none;
+    text-shadow: 3px 4px 3px rgb(12, 2, 109);
+}

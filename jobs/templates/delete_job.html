@@ -1,0 +1,16 @@
+
+{% extends 'shared/_base.html' %}
+{% load static %}
+{% block title %} delete job {% endblock %}
+
+{% block content%}
+
+    <form method="post">
+            {% csrf_token %}
+            <div class="alert alert-warning" role="alert">
+                Are you sure you want to delete <strong>{{ object.title }} job with id : {{object.id}}</strong> ?
+            </div>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+{% endblock %}

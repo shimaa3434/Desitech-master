@@ -1,0 +1,67 @@
+{% extends 'shared/_base.html' %} 
+{% load static %} 
+{% block title %} jobs dashboard {% endblock %}
+{% block content%}
+
+<a href="{% url 'jobs:job-create' %}" class=" fa fa-plus-circle fa-4x  position-fixed ml-lg-4"></a>
+
+<div class="container">
+
+<h2>My jobs Table :</h2>
+
+    <table class=" table-hover table  table-striped  text-center">
+        <thead >
+            <tr class = 'thead-dark'>
+            <th> # JOB </th>
+            <th>TITLE</th>
+            <th>Create time</th>
+            <th>Details</th>
+            <th>update</th>
+            <th>delete</th>
+            </tr>
+        </thead>  
+
+        <tbody>
+
+
+            {% for job in page_obj %}
+                    <tr>
+                      
+                        <td><strong>{{job.id}}</strong></td>
+                        <td>{{job.title}}</td>
+                        <td>{{job.date}}</td>
+                        <td><a href= {% url 'jobs:job-detail' job.id %}  class="edit-jobs fa fa-eye fa-2x text-dark"></a></td>
+                        <td><a href= {% url 'jobs:job-update' job.id %}  class="edit-jobs fa fa-pencil fa-2x text-dark"></a></td>
+                        <td><a href= {% url 'jobs:job-delete' job.id %}  class="edit-jobs fa fa-trash-o fa-2x text-dark"></a></td>
+                    </tr>
+
+            {% endfor %}
+
+        </tbody> 
+    </table>
+</div>
+
+{% if page_obj.has_other_pages %}
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link fa fa-angle-double-left"></a></li>
+    {% else %}
+      <li class="disabled page-link fa fa-angle-double-left"></li>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}" class="page-link fa fa-angle-double-right"></a></li>
+    {% else %}
+      <li class="disabled page-link fa fa-angle-double-right"></li>
+    {% endif %}
+    </ul>
+   <p class="text-muted pagination justify-content-center">
+       Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+  </p> 
+  
+{% endif %}
+
+
+
+{% endblock %} 
+

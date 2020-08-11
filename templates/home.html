@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends 'shared/_base.html' %} 
+
+{% load static %} 
+{% block title %} {{page_title}} {% endblock %}
+{% block content%}
+<h1 id="hd">home page</h1>
+
+{% endblock %} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+{% extends 'shared/_base.html' %} 
+{% block title %} Home {% endblock %} 
+{% load static %} 
+{% block content%}
+
+
+
+<br><br><br><br><br>
+<h1 id="hd">home home home</h1>
+ <a href="{% url 'accounts:password_reset' %}" class="nav-item nav-link">forget password ?</a>
+{% if user.is_authenticated %} {{user}}
+<br> the name is  = {{user.company_profile.Company_name}}
+<br> {{user.user_type}}
+<br> {% endif %}
+
+
+<br><br><br>
+
+
+
+
+
+
+{% endblock %}  {% endcomment %}
+

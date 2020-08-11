@@ -1,0 +1,55 @@
+{% extends 'shared/_base.html' %}
+{% load static %}
+{% block title %} all jobs {% endblock %}
+{% block content%}
+
+  <div class="container">
+  <form method="get" action="{% url 'jobs:job-search'  %}" >
+      {% csrf_token %}
+      <select name="city">
+        {% for city in cities %}
+            <option value="{{city.title}}">{{city.title}}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value="Filter By City">
+  </form>
+    <div  class="jumbotron mt-3">
+      <h1 class="display-4">Hello,</h1>
+      <p class="lead">text or anything</p>
+    </div>
+    <div  class="jumbotron">
+   
+      <div class="row justify-content-md-center">
+        <div class="col-sm-10">
+
+          {% for job in page_obj  %}
+            {% include "cards/JobsListCard.html" %}
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% if page_obj.has_other_pages %}
+  <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+         <a href="?page={{ page_obj.previous_page_number }}" class="page-link fa fa-angle-double-left"></a>
+
+      </li>
+      {% endif %} 
+     
+      {% if page_obj.has_next %}
+      <li class="page-item">
+         <a href="?page={{ page_obj.next_page_number }}" class="page-link fa fa-angle-double-right"></a>
+
+      </li>
+      {% endif %} 
+  </ul>
+ <p class="text-muted pagination justify-content-center">
+       Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+</p>
+ {% endif %} 
+{% endblock %}
+

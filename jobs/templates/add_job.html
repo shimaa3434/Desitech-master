@@ -1,0 +1,16 @@
+{% extends 'shared/_base.html' %}
+{% load static %}
+{% block title %} create job {% endblock %}
+
+{% block content%}
+
+<form method="post" id="Countries" data-cities-url="{% url 'jobs:ajax_load_cities' %}" novalidate>
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <button type="submit" class="btn btn-success">Create</button>
+        </form>
+          
+
+{% endblock %}

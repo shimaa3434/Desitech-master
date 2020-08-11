@@ -1,0 +1,16 @@
+
+
+
+{% extends 'shared/_base.html' %}
+{% load static %}
+{% block title %} job details {% endblock %}
+{% block content%}
+<div class="container">
+   <div  class="jumbotron mt-4">
+    <h1 class="display-4">Hello, Dear!</h1>
+    <p class="lead">simple paragraph for job and other things.</p>
+    </div>
+
+    {% include "cards/jobDetailCard.html" %}
+    </div>
+{% endblock %}
